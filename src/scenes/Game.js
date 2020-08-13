@@ -11,6 +11,7 @@ let platforms;
 let player;
 let cursors;
 let background;
+let apples;
 
 export default new Phaser.Class({
   Extends: Phaser.Scene,
@@ -29,7 +30,7 @@ export default new Phaser.Class({
     background = this.add.image(400, 300, "sky");
     background.setScale(5);
 
-    this.add.image(100, 299, "apple").setScale(0.1);
+    apples = this.physics.add.sprite(150, 200, "apple").setScale(0.1);
 
     platforms = this.physics.add.staticGroup();
 
@@ -43,6 +44,10 @@ export default new Phaser.Class({
       .setScale(0.3)
       .refreshBody();
     platforms
+      .create(150, 240, "ground")
+      .setScale(0.05)
+      .refreshBody();
+    platforms
       .create(750, 220, "ground")
       .setScale(0.3)
       .refreshBody();
@@ -51,15 +56,16 @@ export default new Phaser.Class({
 
     player.setBounce(0.2);
     player.setCollideWorldBounds(true);
-
-    this.physics.add.collider(player, platforms);
-    this.physics.add.overlap(player, apple, collectApple, null, this);
-
-    function collectApple(player, apple) {
-      apple.kill();
-    }
   },
   update: function update() {
+    function collectApple(player, apples) {
+      apples.disableBody(true, true);
+      this.scene.start("winscreen");
+    }
+
+    this.physics.add.collider(player, platforms);
+    this.physics.add.collider(apples, platforms);
+    this.physics.add.overlap(player, apples, collectApple, null, this);
     cursors = this.input.keyboard.createCursorKeys();
 
     if (cursors.left.isDown) {

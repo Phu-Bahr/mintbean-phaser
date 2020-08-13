@@ -15,7 +15,10 @@ export default new Phaser.Class({
     graphics.fillStyle(0x000000, 1);
     graphics.fillRect(0, 0, 800, 600);
 
-    this.add.text("Get the apple......");
+    this.add.text(270, 300, "Press space to start.");
+    this.add.text(270, 315, "Move with up, down, left, right.");
+    this.add.text(270, 330, "Press spacebar to brake.");
+    this.add.text(270, 345, "Collect all the stars to win.");
   },
   update: function() {
     if (cursors.space.isDown) {
