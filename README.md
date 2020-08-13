@@ -1,3 +1,5 @@
+Using Mintbean's starter template, first attempt at PhaserJS
+
 # Mintbean's PhaserJS Template
 
 ## Getting Started
